@@ -1,6 +1,6 @@
 import React from "react";
 import { Controller, Control } from "react-hook-form";
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, IconButton, TextField } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
 
 interface CounterProps {
@@ -19,43 +19,43 @@ export default function CounterController({
   className = "w-full",
 }: CounterProps) {
   return (
-    <div className="mb-4">
+    <div>
       <Controller
         control={control}
         name={name}
+        defaultValue={1} // Establecer el valor inicial a 1
         rules={{
           ...rules,
           min: 1,
           max: 100,
         }}
         render={({ field }: any) => (
-          <Grid container spacing={2} alignItems="center">
+          <Grid container spacing={1} alignItems="center">
             <Grid item>
-              <Button
-                variant="outlined"
+              <IconButton
                 onClick={() => field.onChange(field.value - 1)}
                 disabled={field.value <= 1}
               >
                 <Remove />
-              </Button>
+              </IconButton>
             </Grid>
             <Grid item xs>
               <TextField
                 {...field}
                 type="number"
-                className={` ${className} p-2 border rounded-md ${
-                  field.invalid ? "border-red-500" : "border-gray-300"
-                }`}
+                size="small"
+                className={`${className} p-2`}
+                disabled
               />
             </Grid>
             <Grid item>
-              <Button
-                variant="outlined"
+              <IconButton
                 onClick={() => field.onChange(field.value + 1)}
                 disabled={field.value >= 100}
+                className="cursor-pointer"
               >
                 <Add />
-              </Button>
+              </IconButton>
             </Grid>
           </Grid>
         )}
