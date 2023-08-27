@@ -23,7 +23,7 @@ export default function SignUp() {
   } = useForm<SignUpInterface>();
   const { handleSignUp, confirmPasswordValidation } = useSignUp({ watch });
   return (
-    <div className="flex flex-col justify-center items-center h-[100vh]">
+    <div className="flex flex-col justify-center items-center h-[100vh] bg-[#353C59]">
       <Image
         src="/logo-strappberry.png"
         width={240}
