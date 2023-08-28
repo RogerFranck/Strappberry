@@ -1,7 +1,10 @@
 import Card from "@/components/Card";
+import useShop from "@/hooks/useShop";
 import { Productpayload } from "@/redux/context/productSlice";
+import { formatCurrency } from "@/utils/format";
 import { Skeleton } from "@mui/material";
 import React from "react";
+import usePaginationMain from "../hooks/usePaginationMain";
 
 interface CardListProps {
   products: Productpayload[];
@@ -12,6 +15,7 @@ export default function CardList({
   products,
   isLoadingProducts,
 }: CardListProps) {
+  const { handleAddShopList } = useShop();
   return (
     <>
       {isLoadingProducts
@@ -20,11 +24,12 @@ export default function CardList({
           ))
         : products.map((e: Productpayload, i: number) => (
             <Card
-              href="/"
+              href={`/product/${e.id}`}
               icon={e.img}
               key={i}
               title={e.name}
-              price={`$${e.price}`}
+              price={formatCurrency(e.price)}
+              onClick={() => handleAddShopList(e)}
             />
           ))}
     </>

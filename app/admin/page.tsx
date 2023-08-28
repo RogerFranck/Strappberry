@@ -7,7 +7,6 @@ import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 import SearchInput from "@/components/SearchInput";
 import Modal from "@/components/Modal";
 import ProductAdd from "./product/productAdd";
-import { Skeleton } from "@mui/material";
 
 export default function AdminPage() {
   const {

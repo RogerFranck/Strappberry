@@ -1,9 +1,11 @@
 import Modal from "@/components/Modal";
 import React from "react";
-import useShopCar from "./hooks/useShopCar";
 import CardShopCar from "./CardShopCar";
 import ButtonSecondary from "@/components/buttons/ButtonSecondary";
 import { useForm } from "react-hook-form";
+import { ProductShopInterface } from "@/redux/context/shopSlice";
+import useShop from "@/hooks/useShop";
+import { formatCurrency } from "@/utils/format";
 
 interface ShoppinCarProps {
   open: boolean;
@@ -11,10 +13,16 @@ interface ShoppinCarProps {
 }
 
 export default function ShoppinCar({ open, handleClose }: ShoppinCarProps) {
-  const { product } = useShopCar();
+  const {
+    shopList,
+    handleDelete,
+    handleChangueIncrement,
+    handleChangueDecrement,
+    onBuyComplete,
+    total,
+  } = useShop();
   const {
     control,
-    watch,
     formState: { errors },
   } = useForm();
   return (
@@ -25,9 +33,15 @@ export default function ShoppinCar({ open, handleClose }: ShoppinCarProps) {
       background="bg-[#F0F1F5]"
     >
       <div className="overflow-y-scroll max-h-96">
-        {product.map((e, i) => (
+        {shopList.length === 0 && (
+          <span className="flex justify-center items-center">
+            No hay productos en tu carrito
+          </span>
+        )}
+        {shopList.map((e: ProductShopInterface, i: number) => (
           <CardShopCar
             key={e.id}
+            id={e.id}
             href={`/product/${e.id}`}
             icon={e.img}
             title={e.name}
@@ -35,15 +49,21 @@ export default function ShoppinCar({ open, handleClose }: ShoppinCarProps) {
             control={control}
             errors={errors}
             name={`cost.${i}`}
+            cant={e.cant}
+            handleDelete={handleDelete}
+            handleChangueIncrement={handleChangueIncrement}
+            handleChangueDecrement={handleChangueDecrement}
           />
         ))}
       </div>
       <hr />
       <div className="flex justify-between my-11">
         <span className="font-bold">Total</span>
-        <span className="font-bold">$420</span>
+        <span className="font-bold">{formatCurrency(total)}</span>
       </div>
-      <ButtonSecondary>Comprar ahora</ButtonSecondary>
+      <ButtonSecondary onClick={() => onBuyComplete(handleClose)}>
+        Comprar ahora
+      </ButtonSecondary>
     </Modal>
   );
 }

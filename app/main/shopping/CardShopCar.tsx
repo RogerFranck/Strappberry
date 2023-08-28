@@ -6,18 +6,25 @@ import { Control } from "react-hook-form";
 import CounterController from "@/components/CounterController";
 import { IconButton } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
+import { formatCurrency } from "@/utils/format";
 
 interface Props {
   title: string;
+  id: number;
   icon: string;
   href: string;
-  price?: string;
+  price: number;
   errors: any;
   control: Control<any>;
   name: string;
+  cant: number;
+  handleDelete: (id: number) => void;
+  handleChangueIncrement: (id: number) => void;
+  handleChangueDecrement: (id: number) => void;
 }
 
 export default function CardShopCar({
+  id,
   icon,
   title,
   price,
@@ -25,6 +32,10 @@ export default function CardShopCar({
   control,
   errors,
   name,
+  cant,
+  handleDelete,
+  handleChangueIncrement,
+  handleChangueDecrement,
 }: Props) {
   return (
     <div
@@ -38,17 +49,20 @@ export default function CardShopCar({
       <div className="flex flex-col gap-1 justify-start items-start p-2 rounded-md w-full">
         <div className="flex flex-row justify-between w-full items-center">
           {title && <span className="font-bold text-lg">{title}</span>}
-          <IconButton>
+          <IconButton onClick={() => handleDelete(id)}>
             <ClearIcon />
           </IconButton>
         </div>
         <div className="flex flex-row justify-between w-full mt-5 items-center max-sm:flex-col">
-          <span>${price}</span>
+          <span>{formatCurrency(price)}</span>
           <CounterController
             control={control}
             errors={errors}
             name={name}
+            cant={cant}
             className="w-[80px]"
+            onIncrement={() => handleChangueIncrement(id)}
+            onDecrement={() => handleChangueDecrement(id)}
           />
         </div>
       </div>

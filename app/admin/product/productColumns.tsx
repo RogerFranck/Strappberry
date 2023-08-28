@@ -1,6 +1,7 @@
 import { GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { formatCurrency } from "@/utils/format";
 
 interface productColumnsProps {
   deleteProducts: any;
@@ -38,7 +39,7 @@ const productColumns: ({
     flex: 1,
     minWidth: 150,
     headerClassName: "bg-[#353C59] text-white",
-    valueGetter: ({ row }) => `$${row.price}`,
+    valueGetter: ({ row }) => formatCurrency(row.price),
   },
   {
     field: "category",

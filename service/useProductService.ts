@@ -9,6 +9,10 @@ export const useGetProduct = () => useGet({
   setItem: setProducts 
 })
 
+export const getProductById = (id:any) => axiosGet({ 
+  url: `${PRODUCT_API}/${id}`, 
+})
+
 export const usePostProduct = () => usePost({
   url: PRODUCT_API,
   setItem: addProducts
@@ -27,4 +31,6 @@ export const useDeleteProduct = () => useDelete({
 export const handleGetProductPagination = (page: number, perPage: number) => axiosGet({url: `${PRODUCT_API}/${page}/${perPage}`})
 
 export const handleSearchProduct = (q: string) => axiosGet({ url:`${PRODUCT_API}/search?q=${q}` })
+
+export const handleSearchCategory = (q: string) => axiosGet({ url:`${PRODUCT_API}/bycategory?q=${q}` })
 

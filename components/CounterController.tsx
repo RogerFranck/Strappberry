@@ -9,6 +9,9 @@ interface CounterProps {
   control: Control<any>;
   className?: string;
   errors: any;
+  cant: number;
+  onIncrement: any;
+  onDecrement: any;
 }
 
 export default function CounterController({
@@ -16,6 +19,9 @@ export default function CounterController({
   rules,
   control,
   errors,
+  cant,
+  onIncrement,
+  onDecrement,
   className = "w-full",
 }: CounterProps) {
   return (
@@ -23,7 +29,7 @@ export default function CounterController({
       <Controller
         control={control}
         name={name}
-        defaultValue={1} // Establecer el valor inicial a 1
+        defaultValue={cant}
         rules={{
           ...rules,
           min: 1,
@@ -33,7 +39,10 @@ export default function CounterController({
           <Grid container spacing={1} alignItems="center">
             <Grid item>
               <IconButton
-                onClick={() => field.onChange(field.value - 1)}
+                onClick={() => {
+                  field.onChange(field.value - 1);
+                  onDecrement();
+                }}
                 disabled={field.value <= 1}
               >
                 <Remove />
@@ -50,7 +59,10 @@ export default function CounterController({
             </Grid>
             <Grid item>
               <IconButton
-                onClick={() => field.onChange(field.value + 1)}
+                onClick={() => {
+                  field.onChange(field.value + 1);
+                  onIncrement();
+                }}
                 disabled={field.value >= 100}
                 className="cursor-pointer"
               >

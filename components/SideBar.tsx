@@ -7,6 +7,7 @@ import DrawerBurguer from "./DrawerBurguer";
 import ShoppinCar from "@/app/main/shopping/shoppinCar";
 import useModal from "@/hooks/useModal";
 import Loader from "./loader";
+import useShop from "@/hooks/useShop";
 
 interface SideBarProps {
   children: React.ReactNode;
@@ -24,6 +25,7 @@ export default function SideBar({
   isLoading = false,
 }: SideBarProps) {
   const { handleCloseModal, handleOpenModal, open } = useModal();
+  const { shopList } = useShop();
   return (
     <div className="flex flex-row">
       <div className="bg-[#353C59] h-[100vh] p-6 max-sm:hidden">
@@ -64,7 +66,7 @@ export default function SideBar({
           {tittle}
           {clientMenu && (
             <Badge
-              badgeContent={4}
+              badgeContent={shopList.length}
               color="primary"
               className="max-sm:ml-0 ml-20 cursor-pointer"
               onClick={handleOpenModal}
