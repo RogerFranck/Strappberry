@@ -6,12 +6,14 @@ import Badge from "@mui/material/Badge";
 import DrawerBurguer from "./DrawerBurguer";
 import ShoppinCar from "@/app/main/shopping/shoppinCar";
 import useModal from "@/hooks/useModal";
+import Loader from "./loader";
 
 interface SideBarProps {
   children: React.ReactNode;
   tittle: string;
   items?: { name: string; link: string }[];
   clientMenu?: boolean;
+  isLoading?: boolean;
 }
 
 export default function SideBar({
@@ -19,6 +21,7 @@ export default function SideBar({
   tittle,
   items,
   clientMenu = false,
+  isLoading = false,
 }: SideBarProps) {
   const { handleCloseModal, handleOpenModal, open } = useModal();
   return (
@@ -71,7 +74,13 @@ export default function SideBar({
           )}
           <ShoppinCar open={open} handleClose={handleCloseModal} />
         </div>
-        <div>{children}</div>
+        <div
+          className={`${
+            isLoading ? "flex justify-center items-center mt-40 " : ""
+          }`}
+        >
+          {isLoading ? <Loader /> : children}
+        </div>
       </div>
     </div>
   );

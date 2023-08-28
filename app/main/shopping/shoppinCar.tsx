@@ -17,7 +17,6 @@ export default function ShoppinCar({ open, handleClose }: ShoppinCarProps) {
     watch,
     formState: { errors },
   } = useForm();
-  console.log(watch("cost"));
   return (
     <Modal
       title="Mi carrito"

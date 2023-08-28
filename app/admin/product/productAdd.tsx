@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 import TextInputController from "@/components/TextInputController";
 import React from "react";
-import { useForm } from "react-hook-form";
 import useProductAdd from "../hooks/useProductAdd";
 import {
   isRequired,
@@ -10,18 +10,27 @@ import {
 import ButtonForm from "@/components/buttons/ButtonForm";
 import TextAreaController from "@/components/TextAreaController";
 import FileInputController from "@/components/FileInputController";
+import SelectInputController from "@/components/SelectInputController";
 
 interface ProductAddInterface {
   onClose: () => void;
+  row?: any;
 }
 
-export default function ProductAdd({ onClose }: ProductAddInterface) {
+export default function ProductAdd({ onClose, row }: ProductAddInterface) {
   const {
     control,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const { handleSaveProduct } = useProductAdd();
+    errors,
+    handleSaveProduct,
+    options,
+    isLoadingCategory,
+    isImgSelected,
+  } = useProductAdd({
+    onClose,
+    row,
+  });
+
   return (
     <form onSubmit={handleSubmit(handleSaveProduct)}>
       <TextInputController
@@ -38,12 +47,13 @@ export default function ProductAdd({ onClose }: ProductAddInterface) {
         rules={{ ...isRequired, ...isMoneyField }}
         errors={errors}
       />
-      <TextInputController
+      <SelectInputController
         name="category"
         control={control}
         label="* Categoría"
         rules={isRequired}
         errors={errors}
+        options={isLoadingCategory ? [] : options}
       />
       <TextAreaController
         name="description"
@@ -53,13 +63,19 @@ export default function ProductAdd({ onClose }: ProductAddInterface) {
         errors={errors}
       />
       <FileInputController
-        name="image"
+        name="img"
         label="Subir imagen"
         accept="image/*"
         control={control}
-        rules={isRequired}
         errors={errors}
       />
+      {isImgSelected && (
+        <img
+          src={row.img}
+          alt="Previsualización"
+          className="mt-2 rounded-md max-h-40"
+        />
+      )}
       <ButtonForm onClose={onClose} />
     </form>
   );

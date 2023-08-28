@@ -2,7 +2,18 @@ import { GridColDef, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-const productColumns: GridColDef[] = [
+interface productColumnsProps {
+  deleteProducts: any;
+  onOpen: any;
+}
+
+const productColumns: ({
+  deleteProducts,
+  onOpen,
+}: productColumnsProps) => GridColDef[] = ({
+  deleteProducts,
+  onOpen,
+}: productColumnsProps) => [
   {
     field: "img",
     headerName: "Imagen",
@@ -41,17 +52,17 @@ const productColumns: GridColDef[] = [
     type: "actions",
     headerClassName: "bg-[#353C59] text-white",
     headerName: "Acciones",
-    getActions: (params) => [
+    getActions: ({ row }) => [
       <GridActionsCellItem
         icon={<EditIcon />}
         label="Editar"
-        onClick={() => console.log("hola")}
+        onClick={() => onOpen(row)}
         key={1}
       />,
       <GridActionsCellItem
         icon={<DeleteIcon />}
         label="Eliminar"
-        onClick={() => console.log("hola")}
+        onClick={() => deleteProducts(row.id)}
         key={2}
       />,
     ],
