@@ -23,6 +23,8 @@ interface useMutationProps {
   url: string;
   setItem: any
   id?:string
+  successMsg?:string;
+  errorMsg?:string;
 }
 
 const instance = axios.create({
@@ -62,17 +64,17 @@ export const useGet = ({ url, store, itemList, setItem }: useGetProps) => {
   return { data: itemArray, isLoading, errorResponse, };
 };
 
-export const usePost = ({ url, setItem }: useMutationProps) => {
+export const usePost = ({ url, setItem, successMsg = "Agregado con exito!!", errorMsg = "Error" }: useMutationProps) => {
   const dispatch = useAppDispatch();
   return useMutation({
     mutationFn: async (data: any) => {
       try {
         const response = await axiosPost({url, data})
         dispatch(setItem(response.data)); 
-        toast.success('Agregado con exito!!');
+        toast.success(successMsg);
       return response.data
       } catch (error) {
-        toast.error('Error');
+        toast.error(errorMsg);
       }
     },
   })  

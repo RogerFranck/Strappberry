@@ -13,6 +13,7 @@ import {
   maxLengthValidation,
   emailFieldValidation,
 } from "@/utils/validations";
+import SwitchInputController from "@/components/SwitchInputController";
 
 export default function SignUp() {
   const {
@@ -53,6 +54,7 @@ export default function SignUp() {
             control={control}
             label="* Contraseña"
             errors={errors}
+            isSecret
             rules={passwordFieldValidation}
           />
           <TextInputController
@@ -60,10 +62,17 @@ export default function SignUp() {
             control={control}
             label="* Confirmar contraseña"
             errors={errors}
+            isSecret
             rules={{
               ...passwordFieldValidation,
               validate: confirmPasswordValidation,
             }}
+          />
+          <SwitchInputController
+            name="isAdmin"
+            label="Admin"
+            control={control}
+            errors={errors}
           />
           <ButtonSubmit>Ingresar</ButtonSubmit>
         </form>

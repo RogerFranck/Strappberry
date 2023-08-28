@@ -3,6 +3,7 @@ export interface SignUpInterface {
   email: string;
   password: string;
   rePassword: string;
+  isAdmin: boolean;
 }
 
 export interface useSignUpInterface {
