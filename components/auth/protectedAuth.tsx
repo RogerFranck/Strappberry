@@ -1,19 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getAccessToken } from "@/utils/token";
 import Loader from "../loader";
 
 const ProtectedPage = ({ children }: any) => {
-  const accessToken = getAccessToken();
   const router = useRouter();
+  const [token, settoken] = useState<any>(null);
 
   useEffect(() => {
+    const accessToken = getAccessToken();
+    settoken(accessToken);
     if (!accessToken) {
       router.push("/login");
     }
-  }, [accessToken]);
+  }, []);
 
-  if (accessToken) {
+  if (token) {
     return <>{children}</>;
   }
   return (
