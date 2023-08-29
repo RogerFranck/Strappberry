@@ -28,7 +28,7 @@ interface useMutationProps {
 }
 
 const instance = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'http://34.232.17.56:8000',
 });
 
 
