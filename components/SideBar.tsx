@@ -33,7 +33,7 @@ export default function SideBar({
     <ProtectedPage>
       <div className="flex flex-row">
         <div className="bg-[#353C59] h-[100vh] p-6 max-sm:hidden">
-          <Image
+          <img
             src="/logo-strappberry.png"
             width={240}
             height={61}

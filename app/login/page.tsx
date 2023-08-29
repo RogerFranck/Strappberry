@@ -20,12 +20,7 @@ export default function SignIn() {
 
   return (
     <div className="flex flex-col justify-center items-center h-[100vh] bg-[#353C59]">
-      <Image
-        src="/logo-strappberry.png"
-        width={240}
-        height={61}
-        alt="logoMain"
-      />
+      <img src="/logo-strappberry.png" width={240} height={61} alt="logoMain" />
       <div
         className={`bg-[#F0F1F5] p-10 py-24 my-10 rounded-md max-sm:w-[90%] md:w-1/2 lg:w-1/3 justify-center items-center`}
       >

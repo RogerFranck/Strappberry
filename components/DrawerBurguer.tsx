@@ -29,7 +29,7 @@ const DrawerBurguer = ({ items }: DrawerBurguerProps) => {
       <Drawer anchor="left" open={open} onClose={toggleDrawer(false)}>
         <List className="h-[100vh] flex flex-col justify-between bg-[#353C59] text-white">
           <div>
-            <Image
+            <img
               src="/logo-strappberry.png"
               width={140}
               height={41}
